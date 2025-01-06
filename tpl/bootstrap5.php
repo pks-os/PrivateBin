@@ -55,7 +55,7 @@ if ($MARKDOWN) :
 <?php
 endif;
 ?>
-		<?php $this->_scriptTag('js/purify-3.1.7.js', 'defer'); ?>
+		<?php $this->_scriptTag('js/purify-3.2.3.js', 'defer'); ?>
 		<?php $this->_scriptTag('js/legacy.js', 'async'); ?>
 		<?php $this->_scriptTag('js/privatebin.js', 'defer'); ?>
 		<!-- icon -->
@@ -88,7 +88,7 @@ endif;
 						<form id="passwordform" role="form">
 							<div class="mb-3">
 								<label for="passworddecrypt"><svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="img/bootstrap-icons.svg#eye" /></svg> <?php echo I18n::_('Please enter the password for this paste:') ?></label>
-								<input id="passworddecrypt" type="password" class="form-control" placeholder="<?php echo I18n::_('Enter password') ?>" required="required">
+								<input id="passworddecrypt" type="password" class="form-control" placeholder="<?php echo I18n::_('Enter password') ?>" required="required" />
 							</div>
 							<button type="submit" class="btn btn-success btn-block"><svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="img/bootstrap-icons.svg#power" /></svg> <?php echo I18n::_('Decrypt') ?></button>
 						</form>
@@ -193,7 +193,7 @@ if ($EMAIL) :
 endif;
 if ($QRCODE) :
 ?>
-							<button id="qrcodelink" type="button" data-toggle="modal" data-target="#qrcodemodal" class="hidden btn btn-secondary flex-fill">
+							<button id="qrcodelink" type="button" data-bs-toggle="modal" data-bs-target="#qrcodemodal" class="hidden btn btn-secondary flex-fill">
 								<svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="img/bootstrap-icons.svg#qr-code" /></svg> <?php echo I18n::_('QR code'), PHP_EOL; ?>
 							</button>
 <?php
@@ -249,7 +249,7 @@ if ($PASSWORD) :
 ?>
 						<li class="nav-item">
 							<div id="password" class="navbar-form hidden">
-								<input type="password" id="passwordinput" placeholder="<?php echo I18n::_('Password (recommended)'); ?>" class="form-control" size="23" />
+								<input type="password" id="passwordinput" placeholder="<?php echo I18n::_('Password (recommended)'); ?>" aria-label="<?php echo I18n::_('Password (recommended)'); ?>" class="form-control" size="23" />
 							</div>
 						</li>
 <?php
@@ -296,7 +296,7 @@ endif;
 					<ul class="navbar-nav gap-2">
 						<li class="nav-item">
 							<div class="form-check form-switch navbar-text">
-								<input id="bd-theme" type="checkbox" class="form-check-input">
+								<input id="bd-theme" type="checkbox" class="form-check-input" />
 								<label for="bd-theme" class="form-check-label"><?php echo I18n::_('Dark Mode'); ?></label>
 							</div>
 						</li>
@@ -400,12 +400,17 @@ if ($HTTPWARNING) :
 endif;
 ?>
 				<div id="pastesuccess" class="hidden">
-					<button id="copyLink" type="button" class="btn btn-secondary flex-fill mb-2">
-						<svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="img/bootstrap-icons.svg#copy" /></svg> <?php echo I18n::_('Copy link') ?>
-					</button>
+					<div class="nav justify-content-between mb-2">
+						<button id="copyLink" type="button" class="btn btn-secondary">
+							<svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="img/bootstrap-icons.svg#copy" /></svg> <?php echo I18n::_('Copy link') ?>
+						</button>
+						<a href="#" id="deletelink" class="btn btn-secondary">
+							<svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="img/bootstrap-icons.svg#trash" /></svg>
+							<span></span>
+						</a>
+					</div>
 					<div role="alert" class="alert alert-success">
 						<svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="img/bootstrap-icons.svg#check" /></svg>
-						<div id="deletelink"></div>
 						<div id="pastelink"></div>
 					</div>
 <?php
@@ -428,7 +433,7 @@ endif;
 					<li role="presentation" class="nav-item me-1"><a class="nav-link active" role="tab" id="messageedit" href="#"><?php echo I18n::_('Editor'); ?></a></li>
 					<li role="presentation" class="nav-item me-1"><a class="nav-link" role="tab" id="messagepreview" href="#"><?php echo I18n::_('Preview'); ?></a></li>
 					<li role="presentation" class="nav-item ms-auto">
-						<button id="sendbutton" type="button" class="hidden btn btn-primary">
+						<button id="sendbutton" type="button" tabindex="2" class="hidden btn btn-primary">
 							<svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="img/bootstrap-icons.svg#cloud-upload" /></svg> <?php echo I18n::_('Create'), PHP_EOL; ?>
 						</button>
 					</li>
@@ -447,7 +452,13 @@ endif;
 						<pre id="prettyprint" class="card-body col-md-12 prettyprint linenums:1"></pre>
 					</div>
 					<div id="plaintext" class="col-md-12 hidden"></div>
-					<p class="col-md-12"><textarea id="message" name="message" cols="80" rows="25" class="form-control hidden"></textarea></p>
+					<p class="col-md-12"><textarea id="message" name="message" cols="80" rows="25" aria-label="<?php echo I18n::_('Paste text'); ?>" tabindex="1" class="form-control hidden"></textarea></p>
+					<p class="col-md-12 form-check form-switch">
+						<input id="messagetab" type="checkbox" tabindex="3" class="form-check-input" checked="checked" />
+						<label for="messagetab" class="form-check-label">
+							<?php echo I18n::_('Tabulator key serves as character (Hit <kbd>Ctrl</kbd>+<kbd>m</kbd> or <kbd>Esc</kbd> to toggle)'), PHP_EOL; ?>
+						</label>
+					</p>
 				</article>
 			</section>
 			<section class="container-fluid">

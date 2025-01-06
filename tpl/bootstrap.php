@@ -71,7 +71,7 @@ if ($MARKDOWN) :
 <?php
 endif;
 ?>
-		<?php $this->_scriptTag('js/purify-3.1.7.js', 'async'); ?>
+		<?php $this->_scriptTag('js/purify-3.2.3.js', 'async'); ?>
 		<?php $this->_scriptTag('js/legacy.js', 'async'); ?>
 		<?php $this->_scriptTag('js/privatebin.js', 'defer'); ?>
 		<!-- icon -->
@@ -535,12 +535,17 @@ if ($HTTPWARNING) :
 endif;
 ?>
 				<div id="pastesuccess" class="hidden">
-					<button id="copyLink" type="button" class="btn btn-<?php echo $isDark ? 'warning' : 'default'; ?> navbar-btn">
-						<span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> <?php echo I18n::_('Copy link') ?>
-					</button>
+					<div class="nav nav-justified">
+						<button id="copyLink" type="button" class="btn btn-<?php echo $isDark ? 'warning' : 'default'; ?> navbar-btn">
+							<span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> <?php echo I18n::_('Copy link') ?>
+						</button>
+						<a href="#" id="deletelink" class="btn btn-<?php echo $isDark ? 'warning' : 'default'; ?> navbar-btn">
+							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							<span></span>
+						</a>
+					</div>
 					<div role="alert" class="alert alert-success">
 						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-						<div id="deletelink"></div>
 						<div id="pastelink"></div>
 					</div>
 <?php
@@ -570,7 +575,7 @@ if ($isPage) :
 							<span class="glyphicon glyphicon-file" aria-hidden="true"></span> <?php echo I18n::_('New'), PHP_EOL;
 else :
 ?>
-						<button id="sendbutton" type="button" class="hidden btn btn-<?php echo $isDark ? 'warning' : 'primary'; ?>">
+						<button id="sendbutton" type="button" tabindex="2" class="hidden btn btn-<?php echo $isDark ? 'warning' : 'primary'; ?>">
 							<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> <?php echo I18n::_('Create'), PHP_EOL;
 endif;
 ?>
@@ -591,7 +596,13 @@ endif;
 						<pre id="prettyprint" class="col-md-12 prettyprint linenums:1"></pre>
 					</div>
 					<div id="plaintext" class="col-md-12 hidden"></div>
-					<p class="col-md-12"><textarea id="message" name="message" cols="80" rows="25" class="form-control hidden"></textarea></p>
+					<p class="col-md-12"><textarea id="message" name="message" cols="80" rows="25" tabindex="1" class="form-control hidden"></textarea></p>
+					<p class="col-md-12 checkbox">
+						<label>
+							<input id="messagetab" type="checkbox" tabindex="3" checked="checked" />
+							<?php echo I18n::_('Tabulator key serves as character (Hit <kbd>Ctrl</kbd>+<kbd>m</kbd> or <kbd>Esc</kbd> to toggle)'), PHP_EOL; ?>
+						</label>
+					</p>
 				</article>
 			</section>
 			<section class="container">
